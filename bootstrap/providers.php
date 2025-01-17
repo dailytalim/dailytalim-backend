@@ -11,4 +11,5 @@ return [
 
     Modules\Index\IndexServiceProvider::class,
     Modules\Blog\BlogServiceProvider::class,
+    Modules\Hadith\HadithServiceProvider::class,
 ];
