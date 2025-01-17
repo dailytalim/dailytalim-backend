@@ -1,6 +1,6 @@
 import { createVueApp } from './create-vue-app.js'
-import IndexExampleComponent from './Components/IndexExampleComponent.vue'
+import HadithCard from './Components/HadithCard.vue'
 
 createVueApp({
-    IndexExampleComponent
+    HadithCard
 }).mount('#app')

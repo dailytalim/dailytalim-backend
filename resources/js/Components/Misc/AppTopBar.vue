@@ -15,6 +15,13 @@
 
         <div class="flex items-center">
             <AppButton
+                :href="route('index.index')"
+                class="btn btn-icon hover:bg-skin-neutral-4"
+            >
+                <i class="ri-global-line"></i>
+            </AppButton>
+
+            <AppButton
                 href="#"
                 class="btn btn-icon hover:bg-skin-neutral-4"
                 @click="toggleTheme"
