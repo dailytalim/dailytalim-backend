@@ -4,18 +4,18 @@
         <template #right>
             <div class="flex gap-2">
                 <AppButton
-                    v-if="can('hadith-create')"
+                    v-if="can('chapter-create')"
                     class="btn btn-primary"
-                    @click="$inertia.visit(route('hadith.create'))"
+                    @click="$inertia.visit(route('chapter.create'))"
                 >
                     <i class="ri-add-fill mr-1"></i>
-                    Add hadith
+                    Add chapter
                 </AppButton>
 
                 <AppButton
-                    v-if="can('hadith-recycle-bin-list')"
+                    v-if="can('chapter-recycle-bin-list')"
                     class="btn btn-secondary"
-                    @click="$inertia.visit(route('hadith.recycleBin.index'))"
+                    @click="$inertia.visit(route('chapter.recycleBin.index'))"
                 >
                     <i class="ri-recycle-line mr-1"></i>
                     Recycle Bin
@@ -24,20 +24,20 @@
         </template>
     </AppSectionHeader>
     <AppDataSearch
-        v-if="hadiths.data.length || route().params.searchTerm"
-        :url="route('hadith.index')"
+        v-if="chapters.data.length || route().params.searchTerm"
+        :url="route('chapter.index')"
         fields-to-search="name"
     ></AppDataSearch>
-    <AppDataTable v-if="hadiths.data.length" :headers="headers">
+    <AppDataTable v-if="chapters.data.length" :headers="headers">
         <template #TableBody>
             <tbody>
                 <AppDataTableRow
-                    v-for="(item, index) in hadiths.data"
+                    v-for="(item, index) in chapters.data"
                     :key="item.id"
                 >
                     <AppDataTableData>
                         {{
-                            (hadiths.current_page - 1) * hadiths.per_page +
+                            (chapters.current_page - 1) * chapters.per_page +
                             (index + 1)
                         }}
                     </AppDataTableData>
@@ -58,7 +58,7 @@
                     <AppDataTableData>
                         <!-- Edit -->
                         <AppTooltip
-                            v-if="can('hadith-edit')"
+                            v-if="can('chapter-edit')"
                             text="Edit"
                             class="mr-2"
                         >
@@ -66,7 +66,7 @@
                                 class="btn btn-icon btn-primary"
                                 @click="
                                     $inertia.visit(
-                                        route('hadith.edit', item.id)
+                                        route('chapter.edit', item.id)
                                     )
                                 "
                             >
@@ -75,12 +75,12 @@
                         </AppTooltip>
 
                         <!-- Delete -->
-                        <AppTooltip v-if="can('hadith-delete')" text="Delete">
+                        <AppTooltip v-if="can('chapter-delete')" text="Delete">
                             <AppButton
                                 class="btn btn-icon btn-destructive"
                                 @click="
                                     confirmDelete(
-                                        route('hadith.destroy', item.id)
+                                        route('chapter.destroy', item.id)
                                     )
                                 "
                             >
@@ -94,14 +94,14 @@
     </AppDataTable>
 
     <AppPaginator
-        :links="hadiths.links"
-        :from="hadiths.from ?? 0"
-        :to="hadiths.to ?? 0"
-        :total="hadiths.total ?? 0"
+        :links="chapters.links"
+        :from="chapters.from ?? 0"
+        :to="chapters.to ?? 0"
+        :total="chapters.total ?? 0"
         class="mt-4 justify-center"
     ></AppPaginator>
 
-    <AppAlert v-if="!hadiths.data.length" class="mt-4">
+    <AppAlert v-if="!chapters.data.length" class="mt-4">
         No data found.
     </AppAlert>
 
@@ -114,11 +114,11 @@ import { Head } from '@inertiajs/vue3'
 import useTitle from '@/Composables/useTitle'
 import useAuthCan from '@/Composables/useAuthCan'
 
-const { title } = useTitle('hadiths')
+const { title } = useTitle('chapters')
 const { can } = useAuthCan()
 
 const props = defineProps({
-    hadiths: {
+    chapters: {
         type: Object,
         default: () => {}
     }
@@ -133,7 +133,7 @@ const breadCrumb = [
     { label: title, last: true }
 ]
 
-const headers = ['SL', 'hadith Name', 'Status', 'Actions']
+const headers = ['SL', 'chapter Name', 'Status', 'Actions']
 
 const confirmDialogRef = ref(null)
 const confirmDelete = (deleteRoute) => {

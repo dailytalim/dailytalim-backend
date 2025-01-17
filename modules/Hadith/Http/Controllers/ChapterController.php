@@ -1,5 +1,4 @@
 <?php
-
 namespace Modules\Hadith\Http\Controllers;
 
 use Carbon\Carbon;
@@ -17,27 +16,27 @@ class ChapterController extends BackendController
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
-            ->through(fn ($chapter) => [
-                'id' => $chapter->id,
-                'name' => $chapter->name,
+            ->through(fn($chapter) => [
+                'id'     => $chapter->id,
+                'name'   => $chapter->name,
                 'active' => $chapter->active,
             ]);
 
-        return inertia('Hadith/ChapterIndex', [
+        return inertia('Chapter/ChapterIndex', [
             'chapters' => $chapters,
         ]);
     }
 
     public function create(): Response
     {
-        return inertia('Hadith/ChapterForm');
+        return inertia('Chapter/ChapterForm');
     }
 
     public function store(ChapterValidate $request): RedirectResponse
     {
         Chapter::create($request->validated());
 
-        return redirect()->route('Chapter.index')
+        return redirect()->route('chapter.index')
             ->with('success', 'Chapter created.');
     }
 
@@ -45,7 +44,7 @@ class ChapterController extends BackendController
     {
         $chapter = Chapter::find($id);
 
-        return inertia('Hadith/ChapterForm', [
+        return inertia('Chapter/ChapterForm', [
             'Chapter' => $chapter,
         ]);
     }
@@ -56,7 +55,7 @@ class ChapterController extends BackendController
 
         $chapter->update($request->validated());
 
-        return redirect()->route('Chapter.index')
+        return redirect()->route('chapter.index')
             ->with('success', 'Chapterupdated.');
     }
 
@@ -64,7 +63,7 @@ class ChapterController extends BackendController
     {
         Chapter::findOrFail($id)->delete();
 
-        return redirect()->route('Chapter.index')
+        return redirect()->route('chapter.index')
             ->with('success', 'Chapterdeleted.');
     }
 
@@ -75,15 +74,15 @@ class ChapterController extends BackendController
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
-            ->through(fn ($chapter) => [
-                'id' => $chapter->id,
-                'name' => $chapter->name,
+            ->through(fn($chapter) => [
+                'id'         => $chapter->id,
+                'name'       => $chapter->name,
                 'deleted_at' => $chapter->deleted_at ? Carbon::parse($chapter->deleted_at)->format('d/m/Y') : null,
-                'deletedBy' => $chapter->deletedBy,
-                'active' => $chapter->active,
+                'deletedBy'  => $chapter->deletedBy,
+                'active'     => $chapter->active,
             ]);
 
-        return inertia('Hadith/ChapterRecycleBin', [
+        return inertia('Chapter/ChapterRecycleBin', [
             'chapters' => $chapters,
         ]);
     }
@@ -92,7 +91,7 @@ class ChapterController extends BackendController
     {
         Chapter::onlyTrashed()->findOrFail($id)->restore(); // Restore soft deleted record
 
-        return redirect()->route('Chapter.recycleBin')
+        return redirect()->route('chapter.recycleBin')
             ->with('success', 'ChapterRestored.');
     }
 
@@ -103,7 +102,7 @@ class ChapterController extends BackendController
 
         $chapter->forceDelete();
 
-        return redirect()->route('Chapter.recycleBin')->with('success', 'Chapterdeleted.');
+        return redirect()->route('chapter.recycleBin')->with('success', 'Chapterdeleted.');
     }
 
     public function emptyRecycleBin(): RedirectResponse
@@ -114,7 +113,7 @@ class ChapterController extends BackendController
             $chapter->forceDelete();
         }
 
-        return redirect()->route('Chapter.recycleBin')
+        return redirect()->route('chapter.recycleBin')
             ->with('success', 'Recycle bin emptied.');
     }
 
@@ -122,7 +121,7 @@ class ChapterController extends BackendController
     {
         Chapter::onlyTrashed()->restore(); // Restore soft deleted records
 
-        return redirect()->route('Chapter.recycleBin')
+        return redirect()->route('chapter.recycleBin')
             ->with('success', 'Chapter Restored.');
     }
 }

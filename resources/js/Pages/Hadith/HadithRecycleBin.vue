@@ -2,32 +2,43 @@
     <Head :title="title"></Head>
     <AppSectionHeader :title="title" :bread-crumb="breadCrumb">
         <template #right>
-            <div class="flex gap-2">
+            <div class="flex flex-col gap-2 md:flex-row">
                 <AppButton
-                    v-if="can('hadith-create')"
-                    class="btn btn-primary"
-                    @click="$inertia.visit(route('hadith.create'))"
+                    v-if="can('hadith-list')"
+                    class="btn btn-secondary"
+                    @click="$inertia.visit(route('hadith.index'))"
                 >
-                    <i class="ri-add-fill mr-1"></i>
-                    Add hadith
+                    <i class="ri-arrow-left-s-line mr-1"></i>
+                    Back to List
                 </AppButton>
 
                 <AppButton
-                    v-if="can('hadith-recycle-bin-list')"
-                    class="btn btn-secondary"
-                    @click="$inertia.visit(route('hadith.recycleBin.index'))"
+                    v-if="can('hadith-recycle-bin-restore')"
+                    class="btn btn-primary"
+                    @click="$inertia.visit(route('hadith.RecycleBin.restore'))"
                 >
-                    <i class="ri-recycle-line mr-1"></i>
-                    Recycle Bin
+                    <i class="ri-recycle-fill mr-1"></i>
+                    Restore Recycle Bin
+                </AppButton>
+
+                <AppButton
+                    v-if="can('hadith-recycle-bin-delete')"
+                    class="btn btn-destructive"
+                    @click="confirmDelete(route('hadith.recycleBin.empty'))"
+                >
+                    <i class="ri-delete-bin-7-line mr-1"></i>
+                    Empty Recycle Bin
                 </AppButton>
             </div>
         </template>
     </AppSectionHeader>
+
     <AppDataSearch
         v-if="hadiths.data.length || route().params.searchTerm"
-        :url="route('hadith.index')"
+        :url="route('hadith.recycleBin')"
         fields-to-search="name"
     ></AppDataSearch>
+
     <AppDataTable v-if="hadiths.data.length" :headers="headers">
         <template #TableBody>
             <tbody>
@@ -47,40 +58,42 @@
                     </AppDataTableData>
 
                     <AppDataTableData>
-                        <span
-                            class="rounded px-3 py-1 text-sm"
-                            :class="getStatusClass(item.active)"
-                        >
-                            {{ item.active ? 'Active' : 'Inactive' }}
-                        </span>
+                        {{ item.deleted_at }}
                     </AppDataTableData>
 
                     <AppDataTableData>
-                        <!-- Edit -->
+                        {{ item.deletedBy?.name ?? '-' }}
+                    </AppDataTableData>
+
+                    <AppDataTableData>
+                        <!-- Restore -->
                         <AppTooltip
-                            v-if="can('hadith-edit')"
-                            text="Edit"
+                            v-if="can('hadith-recycle-bin-restore')"
+                            text="Restore"
                             class="mr-2"
                         >
                             <AppButton
                                 class="btn btn-icon btn-primary"
                                 @click="
                                     $inertia.visit(
-                                        route('hadith.edit', item.id)
+                                        route('hadith.restore', item.id)
                                     )
                                 "
                             >
-                                <i class="ri-edit-line"></i>
+                                <i class="ri-recycle-fill"></i>
                             </AppButton>
                         </AppTooltip>
 
                         <!-- Delete -->
-                        <AppTooltip v-if="can('hadith-delete')" text="Delete">
+                        <AppTooltip
+                            v-if="can('hadith-recycle-bin-delete')"
+                            text="Permanently Delete"
+                        >
                             <AppButton
                                 class="btn btn-icon btn-destructive"
                                 @click="
                                     confirmDelete(
-                                        route('hadith.destroy', item.id)
+                                        route('hadith.destroyForce', item.id)
                                     )
                                 "
                             >
@@ -114,8 +127,8 @@ import { Head } from '@inertiajs/vue3'
 import useTitle from '@/Composables/useTitle'
 import useAuthCan from '@/Composables/useAuthCan'
 
-const { title } = useTitle('hadiths')
 const { can } = useAuthCan()
+const { title } = useTitle('SMS Gateway Recycle Bin')
 
 const props = defineProps({
     hadiths: {
@@ -124,16 +137,13 @@ const props = defineProps({
     }
 })
 
-const getStatusClass = (status) => {
-    return status == true ? 'active' : 'inactive'
-}
-
 const breadCrumb = [
     { label: 'Home', href: route('dashboard.index') },
+    { label: 'hadiths', href: route('hadith.index') },
     { label: title, last: true }
 ]
 
-const headers = ['SL', 'hadith Name', 'Status', 'Actions']
+const headers = ['SL', 'hadith Name', 'Deleted At', 'Deleted By', 'Actions']
 
 const confirmDialogRef = ref(null)
 const confirmDelete = (deleteRoute) => {

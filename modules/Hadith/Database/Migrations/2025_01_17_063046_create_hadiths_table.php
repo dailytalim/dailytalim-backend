@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('hadiths', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
+            $table->foreignId('kitab_id')->nullable()->constrained('kitabs')->cascadeOnDelete();
+            $table->foreignId('chapter_id')->nullable()->constrained('chapters')->cascadeOnDelete();
+
+            $table->longText('description')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

@@ -66,17 +66,17 @@ import useFormErrors from '@/Composables/useFormErrors'
 import { onMounted } from 'vue'
 
 const props = defineProps({
-    hadith: {
+    chapter: {
         type: Object,
         default: null
     }
 })
 
-const { title } = useTitle('hadith')
+const { title } = useTitle('Chapter')
 
 const breadCrumb = [
     { label: 'Home', href: route('dashboard.index') },
-    { label: 'hadiths', href: route('hadith.index') },
+    { label: 'chapters', href: route('chapter.index') },
     { label: title, last: true }
 ]
 
@@ -98,9 +98,9 @@ const submitForm = () => {
     }
 
     if (isCreate.value) {
-        form.transform(postData).post(route('hadith.store'))
+        form.transform(postData).post(route('chapter.store'))
     } else {
-        form.transform(postData).post(route('hadith.update', props.hadith.id))
+        form.transform(postData).post(route('chapter.update', props.chapter.id))
     }
 }
 
