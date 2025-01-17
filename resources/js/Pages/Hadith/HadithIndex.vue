@@ -43,7 +43,7 @@
                     </AppDataTableData>
 
                     <AppDataTableData>
-                        {{ item.name }}
+                        {{ item.description }}
                     </AppDataTableData>
 
                     <AppDataTableData>

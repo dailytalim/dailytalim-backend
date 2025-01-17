@@ -1,29 +1,28 @@
 <?php
-
 namespace Modules\Hadith\Http\Controllers;
 
-use Modules\Support\Http\Controllers\BackendController;
-use Modules\Hadith\Http\Requests\HadithValidate;
-use Modules\Hadith\Models\Hadith;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
+use Modules\Hadith\Http\Requests\HadithValidate;
+use Modules\Hadith\Models\Hadith;
+use Modules\Support\Http\Controllers\BackendController;
 
 class HadithController extends BackendController
 {
     public function index(): Response
     {
-        $hadiths = Hadith::orderBy('name')
+        $hadiths = Hadith::orderBy('id')
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
-            ->through(fn ($hadith) => [
-                    'id' => $hadith->id,
-                    'name' => $hadith->name,
-                    'created_at' => $hadith->created_at->format('d/m/Y H:i') . 'h'
+            ->through(fn($hadith) => [
+                'id'          => $hadith->id,
+                'description' => $hadith->description,
+                'created_at'  => $hadith->created_at->format('d/m/Y H:i') . 'h',
             ]);
 
         return inertia('Hadith/HadithIndex', [
-            'hadiths' => $hadiths
+            'hadiths' => $hadiths,
         ]);
     }
 
@@ -45,7 +44,7 @@ class HadithController extends BackendController
         $hadith = Hadith::find($id);
 
         return inertia('Hadith/HadithForm', [
-            'hadith' => $hadith
+            'hadith' => $hadith,
         ]);
     }
 

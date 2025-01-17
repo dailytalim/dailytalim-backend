@@ -11,13 +11,15 @@
             <AppFormErrors class="mb-4" />
             <form class="flex flex-col gap-2">
                 <div>
-                    <AppLabel for="name">{{ __('Name') }}</AppLabel>
+                    <AppLabel for="description">{{
+                        __('Description')
+                    }}</AppLabel>
                     <AppInputText
-                        id="name"
-                        v-model="form.name"
+                        id="description"
+                        v-model="form.description"
                         type="text"
                         :class="{
-                            'input-error': errorsFields.includes('name')
+                            'input-error': errorsFields.includes('description')
                         }"
                     />
                 </div>
@@ -81,9 +83,8 @@ const breadCrumb = [
 ]
 
 const form = useForm({
-    name: props.category ? props.category.name : '',
-    description: props.category ? props.category.description : '',
-    active: props.category ? props.category.active : ''
+    description: props.hadith ? props.hadith.description : '',
+    active: props.hadith ? props.hadith.active : ''
 })
 
 const { isCreate } = useFormContext()
