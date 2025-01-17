@@ -1,5 +1,4 @@
 <?php
-
 namespace Modules\Hadith\Http\Controllers;
 
 use Carbon\Carbon;
@@ -17,27 +16,27 @@ class KitabController extends BackendController
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
-            ->through(fn ($kitab) => [
-                'id' => $kitab->id,
-                'name' => $kitab->name,
+            ->through(fn($kitab) => [
+                'id'     => $kitab->id,
+                'name'   => $kitab->name,
                 'active' => $kitab->active,
             ]);
 
-        return inertia('Hadith/KitabIndex', [
+        return inertia('Kitab/KitabIndex', [
             'kitabs' => $kitabs,
         ]);
     }
 
     public function create(): Response
     {
-        return inertia('Hadith/KitabForm');
+        return inertia('Kitab/KitabForm');
     }
 
     public function store(KitabValidate $request): RedirectResponse
     {
         Kitab::create($request->validated());
 
-        return redirect()->route('Kitab.index')
+        return redirect()->route('kitab.index')
             ->with('success', 'Kitabcreated.');
     }
 
@@ -45,7 +44,7 @@ class KitabController extends BackendController
     {
         $kitab = Kitab::find($id);
 
-        return inertia('Hadith/KitabForm', [
+        return inertia('Kitab/KitabForm', [
             'kitab' => $kitab,
         ]);
     }
@@ -56,7 +55,7 @@ class KitabController extends BackendController
 
         $kitab->update($request->validated());
 
-        return redirect()->route('Kitab.index')
+        return redirect()->route('kitab.index')
             ->with('success', 'Kitabupdated.');
     }
 
@@ -64,7 +63,7 @@ class KitabController extends BackendController
     {
         Kitab::findOrFail($id)->delete();
 
-        return redirect()->route('Kitab.index')
+        return redirect()->route('kitab.index')
             ->with('success', 'Kitabdeleted.');
     }
 
@@ -75,15 +74,15 @@ class KitabController extends BackendController
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
-            ->through(fn ($kitab) => [
-                'id' => $kitab->id,
-                'name' => $kitab->name,
+            ->through(fn($kitab) => [
+                'id'         => $kitab->id,
+                'name'       => $kitab->name,
                 'deleted_at' => $kitab->deleted_at ? Carbon::parse($kitab->deleted_at)->format('d/m/Y') : null,
-                'deletedBy' => $kitab->deletedBy,
-                'active' => $kitab->active,
+                'deletedBy'  => $kitab->deletedBy,
+                'active'     => $kitab->active,
             ]);
 
-        return inertia('Hadith/KitabRecycleBin', [
+        return inertia('Kitab/KitabRecycleBin', [
             'kitabs' => $kitabs,
         ]);
     }
@@ -92,7 +91,7 @@ class KitabController extends BackendController
     {
         Kitab::onlyTrashed()->findOrFail($id)->restore(); // Restore soft deleted record
 
-        return redirect()->route('Kitab.recycleBin')
+        return redirect()->route('kitab.recycleBin')
             ->with('success', 'KitabRestored.');
     }
 
@@ -103,7 +102,7 @@ class KitabController extends BackendController
 
         $kitab->forceDelete();
 
-        return redirect()->route('Kitab.recycleBin')->with('success', 'Kitabdeleted.');
+        return redirect()->route('kitab.recycleBin')->with('success', 'Kitab deleted.');
     }
 
     public function emptyRecycleBin(): RedirectResponse
@@ -114,7 +113,7 @@ class KitabController extends BackendController
             $kitab->forceDelete();
         }
 
-        return redirect()->route('Kitab.recycleBin')
+        return redirect()->route('kitab.recycleBin')
             ->with('success', 'Recycle bin emptied.');
     }
 
@@ -122,7 +121,7 @@ class KitabController extends BackendController
     {
         Kitab::onlyTrashed()->restore(); // Restore soft deleted records
 
-        return redirect()->route('Kitab.recycleBin')
+        return redirect()->route('kitab.recycleBin')
             ->with('success', 'Kitab Restored.');
     }
 }

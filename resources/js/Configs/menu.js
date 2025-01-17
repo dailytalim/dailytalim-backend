@@ -9,6 +9,31 @@ export default {
         },
 
         {
+            label: 'Hadith Management',
+            permission: 'hadith',
+            children: [
+                {
+                    label: 'Hadiths',
+                    permission: 'hadith-list',
+                    icon: 'ri-draft-line',
+                    link: route('hadith.index')
+                },
+                {
+                    label: 'Chapters',
+                    permission: 'chapter-list',
+                    icon: 'ri-folders-line',
+                    link: route('chapter.index')
+                },
+                {
+                    label: 'Kitabs',
+                    permission: 'kitab-list',
+                    icon: 'ri-price-tag-3-line',
+                    link: route('kitab.index')
+                }
+            ]
+        },
+
+        {
             label: 'Blog',
             permission: 'Blog',
             children: [
