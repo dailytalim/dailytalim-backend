@@ -37,5 +37,10 @@ export default defineConfig({
             '@resources': '/resources',
             '@resourcesSite': '/resources-site'
         }
+    },
+    build: {
+        minify: false,
+        chunkSizeWarningLimit: 1000,
+        target: 'es2015'
     }
 })
