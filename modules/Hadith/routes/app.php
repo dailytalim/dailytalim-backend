@@ -107,6 +107,11 @@ Route::prefix('chapter')->name('chapter.')->controller(ChapterController::class)
 
 /** hadith Routes */
 Route::prefix('hadith')->name('hadith.')->controller(HadithController::class)->group(function () {
+    Route::post('hadith/upload-editor-image', 'uploadEditorImage')
+        ->name('uploadEditorImage')
+        ->can('hadith-create')
+        ->can('hadith-edit');
+
     Route::get('/', 'index')
         ->name('index')
         ->can('hadith-list');

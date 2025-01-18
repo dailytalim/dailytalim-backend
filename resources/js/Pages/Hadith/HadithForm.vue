@@ -3,7 +3,7 @@
     <AppSectionHeader :title="title" :bread-crumb="breadCrumb">
     </AppSectionHeader>
 
-    <AppCard class="w-full md:w-3/4 xl:w-1/2">
+    <AppCard class="w-full">
         <template #title>
             {{ title }}
         </template>
@@ -11,16 +11,15 @@
             <AppFormErrors class="mb-4" />
             <form class="flex flex-col gap-2">
                 <div>
-                    <AppLabel for="description">{{
-                        __('Description')
-                    }}</AppLabel>
-                    <AppInputText
-                        id="description"
+                    <AppLabel for="description">Description</AppLabel>
+                    <AppTipTapEditor
                         v-model="form.description"
-                        type="text"
+                        editor-id="description"
                         :class="{
-                            'input-error': errorsFields.includes('description')
+                            'app-tip-tap-error':
+                                errorsFields.includes('description')
                         }"
+                        :file-upload-url="route('hadith.uploadEditorImage')"
                     />
                 </div>
 

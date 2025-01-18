@@ -6,9 +6,15 @@ use Inertia\Response;
 use Modules\Hadith\Http\Requests\HadithValidate;
 use Modules\Hadith\Models\Hadith;
 use Modules\Support\Http\Controllers\BackendController;
+use Modules\Support\Traits\EditorImage;
+use Modules\Support\Traits\UploadFile;
 
 class HadithController extends BackendController
 {
+    use EditorImage, UploadFile;
+
+    protected string $uploadImagePath = 'hadith';
+
     public function index(): Response
     {
         $hadiths = Hadith::orderBy('id')
