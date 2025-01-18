@@ -1,0 +1,103 @@
+
+.app-tip-tap-error {
+    border: 1px solid rgb(var(--color-error) / 1);
+    border-radius: 3px;
+}
+.ProseMirror {
+    min-height: 120px;
+    padding: 5px 10px;
+    background-color: rgb(var(--color-neutral-1) / 1);
+}
+.ProseMirror p {
+    margin: 1em 0;
+}
+.ProseMirror a {
+    text-decoration: underline;
+    color: rgb(var(--color-primary-11) / 1);
+}
+
+/* Heading Sizes, See: https://tailwindcss.com/docs/font-size */
+.ProseMirror h1 {
+    font-size: 2.25rem; /* 36px */
+    line-height: 2.5rem; /* 40px */
+}
+.ProseMirror h2 {
+    font-size: 1.875rem; /* 30px */
+    line-height: 2.25rem; /* 36px */
+}
+.ProseMirror h3 {
+    font-size: 1.5rem; /* 24px */
+    line-height: 2rem; /* 32px */
+}
+.ProseMirror h4 {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.75rem; /* 28px */
+}
+.ProseMirror ul {
+    display: block;
+    list-style-type: disc;
+    padding-left: 0.8rem;
+}
+.ProseMirror ul li {
+    display: list-item;
+}
+.ProseMirror ol {
+    display: block;
+    list-style: decimal;
+    padding-left: 0.8rem;
+}
+.ProseMirror table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+.ProseMirror table td,
+.ProseMirror table th {
+    min-width: 1em;
+    border: 2px solid rgb(var(--color-neutral-6) / 1);
+    padding: 3px 5px;
+    vertical-align: top;
+    box-sizing: border-box;
+    position: relative;
+}
+.ProseMirror table th > * {
+    margin-bottom: 0;
+}
+.ProseMirror th {
+    font-weight: bold;
+    text-align: left;
+    background-color: rgb(var(--color-neutral-2) / 1);
+}
+.ProseMirror .selectedCell:after {
+    z-index: 2;
+    position: absolute;
+    content: '';
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(200, 200, 255, 0.4);
+    pointer-events: none;
+}
+.ProseMirror .column-resize-handle {
+    position: absolute;
+    right: -2px;
+    top: 0;
+    bottom: -2px;
+    width: 4px;
+    background-color: rgb(var(--color-neutral-3) / 1);
+    pointer-events: none;
+}
+.ProseMirror p {
+    margin: 0;
+}
+.tableWrapper {
+    padding: 1rem 0;
+    overflow-x: auto;
+}
+.resize-cursor {
+    cursor: ew-resize;
+    cursor: col-resize;
+}

@@ -1,0 +1,21 @@
+
+.category-visible[data-v-f19e1fcc] {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(var(--color-success-light) / var(--tw-bg-opacity, 1));
+
+    --tw-text-opacity: 1;
+
+    color: rgb(var(--color-success) / var(--tw-text-opacity, 1))
+}
+.category-invisible[data-v-f19e1fcc] {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(var(--color-warning-light) / var(--tw-bg-opacity, 1));
+
+    --tw-text-opacity: 1;
+
+    color: rgb(var(--color-warning) / var(--tw-text-opacity, 1))
+}

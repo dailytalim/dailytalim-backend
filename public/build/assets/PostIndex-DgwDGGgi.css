@@ -1,0 +1,21 @@
+
+.published[data-v-48f17ce2] {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(var(--color-success-light) / var(--tw-bg-opacity, 1));
+
+    --tw-text-opacity: 1;
+
+    color: rgb(var(--color-success) / var(--tw-text-opacity, 1))
+}
+.draft[data-v-48f17ce2] {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(var(--color-warning-light) / var(--tw-bg-opacity, 1));
+
+    --tw-text-opacity: 1;
+
+    color: rgb(var(--color-warning) / var(--tw-text-opacity, 1))
+}
