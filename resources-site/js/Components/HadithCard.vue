@@ -5,7 +5,7 @@
             <img
                 :src="imageSrc"
                 alt="Generated Hadith Image"
-                class="m-4 rounded shadow-lg"
+                class="m-4 rounded-lg border-4 border-white shadow-xl"
             />
         </div>
 
@@ -13,15 +13,9 @@
         <div v-if="imageSrc" class="mt-6 flex justify-center gap-4">
             <button
                 @click="downloadImage"
-                class="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+                class="rounded-lg bg-gradient-to-r from-green-400 to-green-600 px-6 py-3 font-semibold text-white transition duration-300 hover:from-green-500 hover:to-green-700"
             >
                 Download Image
-            </button>
-            <button
-                @click="shareImage"
-                class="rounded bg-purple-600 px-4 py-2 text-white hover:bg-purple-700"
-            >
-                Share on Social Media
             </button>
         </div>
     </div>
@@ -49,29 +43,32 @@ const generateImage = async () => {
         container.style.width = '1000px'
         container.style.fontFamily = 'Arial, sans-serif'
         container.style.textAlign = 'center'
-        container.style.backgroundColor = '#f3f4f6' // Light gray background
-        container.style.padding = '20px'
-        container.style.borderRadius = '8px'
+        container.style.backgroundColor = '#fff9e6' // Light yellow background
+        container.style.padding = '40px'
+        container.style.borderRadius = '20px'
+        container.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)' // Soft shadow for depth
 
         // Create header
         const header = document.createElement('div')
-        header.style.fontSize = '20px'
+        header.style.fontSize = '24px'
         header.style.fontWeight = 'bold'
-        header.style.marginBottom = '10px'
+        header.style.marginBottom = '20px'
+        header.style.color = '#2d3748' // Dark text for the header
         header.innerText = 'আজকের তালিম'
 
         // Create description
         const description = document.createElement('div')
-        description.style.fontSize = '16px'
-        description.style.color = '#1f2937' // Dark gray text
-        description.style.marginBottom = '10px'
+        description.style.fontSize = '18px'
+        description.style.color = '#4a5568' // Lighter gray text
+        description.style.marginBottom = '20px'
+        description.style.lineHeight = '1.5' // More spacious line height for readability
         description.innerHTML = props.hadith.description
 
         // Create footer
         const footer = document.createElement('div')
         footer.style.fontSize = '14px'
-        footer.style.color = '#6b7280' // Gray text
-        footer.style.marginTop = '10px'
+        footer.style.color = '#718096' // Light gray text
+        footer.style.marginTop = '20px'
         footer.innerText = 'www.dailytalim.com, fb.com/DailyTalimBD'
 
         // Append header, description, and footer to the container
@@ -102,33 +99,6 @@ const downloadImage = () => {
     link.click()
 }
 
-const shareImage = async () => {
-    if (!imageSrc.value) return
-
-    try {
-        if (navigator.share) {
-            const response = await fetch(imageSrc.value)
-            const blob = await response.blob()
-            const file = new File([blob], 'hadith-image.png', {
-                type: blob.type
-            })
-
-            await navigator.share({
-                title: 'Hadith Image',
-                text: 'Check out this Hadith:',
-                files: [file]
-            })
-        } else {
-            // Fallback: Copy text or provide manual sharing instructions
-            alert(
-                'Sharing is not supported on this device. You can download the image and share it manually.'
-            )
-        }
-    } catch (error) {
-        console.error('Error sharing the image:', error)
-    }
-}
-
 // Automatically generate the image on component mount
 onMounted(() => {
     generateImage()
@@ -139,7 +109,7 @@ onMounted(() => {
 .hadith-container {
     text-align: center;
     padding: 50px;
-    background-color: #ffffff;
+    background-color: #f9fafb;
 }
 
 .image-preview {
