@@ -1,6 +1,6 @@
 @extends('site-layout')
 
-@section('meta-title', 'Modular: Ready to build')
+@section('meta-title', 'Daily Talim')
 
 @section('meta-description', 'Your amazing site')
 
