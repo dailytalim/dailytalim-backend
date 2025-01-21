@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center justify-center min-h-screen bg-gradient-to-r ">
-        <div class="container max-w-xl rounded-lg bg-white shadow-2xl overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-3xl">
+        <div class="container max-w-2xl rounded-lg bg-white shadow-2xl overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-3xl">
             <!-- Header -->
             <div class="header bg-gradient-to-r from-green-600 to-emerald-500 text-white p-4 text-center">
                 <h2 class="text-3xl font-bold tracking-wide">আজকের তালিম</h2>
@@ -8,10 +8,8 @@
             </div>
 
             <!-- Content -->
-            <div class="content px-8 py-6">
-                <div class="content mt-4">
-                <p v-html="hadith.description" class="text-gray-700 text-base leading-relaxed text-justify"></p>
-            </div>
+            <div class="content p-4">
+                    <p v-html="hadith.description" class="text-gray-700 text-base leading-relaxed text-justify"></p>
             </div>
 
             <!-- Footer -->
