@@ -23,15 +23,18 @@
 
         <link rel="icon" href="/favicon.svg" />
 
-        @vite(['resources-site/css/site.css'])
+        @vite(['resources-site/css/site.css', 'resources-site/js/index-app.js'])
         @yield('headEndScripts')
     </head>
 
     <body>
-        <x-header></x-header>
+        <x-navbar></x-navbar>
+
         <div id="app">
             @yield('content')
         </div>
+
+        <x-footer></x-footer>
 
         @yield('bodyEndScripts')
     </body>
