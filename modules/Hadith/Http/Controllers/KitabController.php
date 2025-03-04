@@ -20,6 +20,8 @@ class KitabController extends BackendController
             ->through(fn ($kitab) => [
                 'id' => $kitab->id,
                 'name' => $kitab->name,
+                'chapters' => $kitab->chapters()->count(),
+                'hadiths' => $kitab->hadiths()->count(),
                 'active' => $kitab->active,
 
                 'created_at' => $kitab->created_at->format('d/m/Y H:i').'h',

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('kitab_id')->nullable()->constrained('kitabs')->cascadeOnDelete();
             $table->string('name');
             $table->boolean('active')->default(true);
 

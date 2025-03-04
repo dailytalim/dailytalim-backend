@@ -47,6 +47,14 @@
                     </AppDataTableData>
 
                     <AppDataTableData>
+                        {{ item.chapters }}
+                    </AppDataTableData>
+
+                    <AppDataTableData>
+                        {{ item.hadiths }}
+                    </AppDataTableData>
+
+                    <AppDataTableData>
                         <span
                             class="rounded px-3 py-1 text-sm"
                             :class="getStatusClass(item.active)"
@@ -131,7 +139,7 @@ const breadCrumb = [
     { label: title, last: true }
 ]
 
-const headers = ['SL', 'Kitab Name', 'Status', 'Actions']
+const headers = ['SL', 'Kitab Name','Chapters','Hadiths', 'Status', 'Actions']
 
 const confirmDialogRef = ref(null)
 const confirmDelete = (deleteRoute) => {
