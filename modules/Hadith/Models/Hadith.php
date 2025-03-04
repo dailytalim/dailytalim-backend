@@ -15,7 +15,7 @@ use Modules\Support\Traits\Searchable;
 class Hadith extends BaseModel
 {
     use ActivityLog, HasFactory, Searchable, SoftDeletes;
-    // use UserStamp;
+    use UserStamp;
 
     protected $table = 'hadiths';
 
@@ -41,5 +41,15 @@ class Hadith extends BaseModel
     public function deletedBy()
     {
         return $this->belongsTo(User::class, 'deleted_by');
+    }
+
+    public function kitab()
+    {
+        return $this->belongsTo(Kitab::class);
+    }
+
+    public function chapter()
+    {
+        return $this->belongsTo(Chapter::class);
     }
 }

@@ -14,7 +14,8 @@ class ChapterValidate extends Request
                 'required',
                 
             ]),
-            'name' => 'required',
+            'name' => 'required|string|max:255',
+            'active' => 'nullable|boolean',
         ];
     }
 }

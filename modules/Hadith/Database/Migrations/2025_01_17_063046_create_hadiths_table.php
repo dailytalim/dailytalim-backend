@@ -15,9 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('kitab_id')->nullable()->constrained('kitabs')->cascadeOnDelete();
             $table->foreignId('chapter_id')->nullable()->constrained('chapters')->cascadeOnDelete();
-
+            $table->string('hadith_number')->nullable();
             $table->longText('description')->nullable();
-
+            $table->boolean('active')->default(true);
+            $table->bigInteger('view_count')->default(0);
+            
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

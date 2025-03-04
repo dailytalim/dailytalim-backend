@@ -12,14 +12,21 @@ class ChapterController extends BackendController
 {
     public function index(): Response
     {
-        $chapters = Chapter::orderBy('name')
+        $chapters = Chapter::with('kitab')
+        ->orderBy('name')
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
             ->through(fn($chapter) => [
                 'id'     => $chapter->id,
+                'kitab' => $chapter->kitab,
                 'name'   => $chapter->name,
                 'active' => $chapter->active,
+
+                'created_at' => $chapter->created_at->format('d/m/Y H:i') . 'h',
+                'updated_at' => $chapter->updated_at->format('d/m/Y H:i') . 'h',
+                'created_by' => $chapter->createdBy?->name,
+                'updated_by' => $chapter->updatedBy?->name,
             ]);
 
         return inertia('Chapter/ChapterIndex', [

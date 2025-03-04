@@ -18,7 +18,7 @@ class HadithSeeder extends Seeder
         info('Creating Hadiths...');
         $this->seedWithProgress(
             label: 'Hadiths creation status',
-            steps: 5,
+            steps: 50,
             callback: fn () => Hadith::factory()->create(),
         );
         info('Hadiths created.');

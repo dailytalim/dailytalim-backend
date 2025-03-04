@@ -2,8 +2,11 @@
 
 namespace Modules\Hadith\Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
+use Modules\Hadith\Models\Kitab;
 use Modules\Hadith\Models\Hadith;
+use Modules\Hadith\Models\Chapter;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class HadithFactory extends Factory
 {
@@ -11,13 +14,18 @@ class HadithFactory extends Factory
 
     public function definition(): array
     {
-        $name = $this->faker->unique()->sentence(4);
-
         return [
-            'name' => $name,            
+            'kitab_id' => Kitab::inRandomOrder()->first()->id,
+            'chapter_id' => Chapter::inRandomOrder()->first()->id,
+            'hadith_number' => $this->faker->numberBetween(1, 1000),
+            'description' => $this->faker->text,
+            'active' => $this->faker->boolean(true),
+            'view_count' => $this->faker->numberBetween(1, 1000),            
             
-            'created_at' => $this->faker->dateTimeBetween('-1 year', '-6 month'),
-            'updated_at' => $this->faker->dateTimeBetween('-5 month', 'now'),
+            'created_by' => User::inRandomOrder()->first()->id ?? null,
+            'updated_by' => User::inRandomOrder()->first()->id ?? null,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

@@ -20,6 +20,11 @@ class KitabController extends BackendController
                 'id'     => $kitab->id,
                 'name'   => $kitab->name,
                 'active' => $kitab->active,
+
+                'created_at' => $kitab->created_at->format('d/m/Y H:i') . 'h',
+                'updated_at' => $kitab->updated_at->format('d/m/Y H:i') . 'h',
+                'created_by' => $kitab->createdBy?->name,
+                'updated_by' => $kitab->updatedBy?->name,
             ]);
 
         return inertia('Kitab/KitabIndex', [

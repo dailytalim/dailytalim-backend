@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Hadith\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
@@ -17,14 +18,27 @@ class HadithController extends BackendController
 
     public function index(): Response
     {
-        $hadiths = Hadith::orderBy('id')
+        $hadiths = Hadith::with([
+            'kitab',
+            'chapter'
+        ])
+            ->orderBy('id')
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
             ->through(fn($hadith) => [
                 'id'          => $hadith->id,
+                'kitab' => $hadith->kitab,
+                'chapter' => $hadith->chapter,
+                'hadith_number' => $hadith->hadith_number,
                 'description' => $hadith->description,
+                'active'      => $hadith->active,
+                'view_count'  => $hadith->view_count,
+                
                 'created_at'  => $hadith->created_at->format('d/m/Y H:i') . 'h',
+                'updated_at'  => $hadith->updated_at->format('d/m/Y H:i') . 'h',
+                'created_by'  => $hadith->createdBy?->name,
+                'updated_by'  => $hadith->updatedBy?->name,
             ]);
 
         return inertia('Hadith/HadithIndex', [

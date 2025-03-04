@@ -18,7 +18,7 @@ class ChapterSeeder extends Seeder
         info('Creating Chapters...');
         $this->seedWithProgress(
             label: 'Chapters creation status',
-            steps: 5,
+            steps: 10,
             callback: fn () => Chapter::factory()->create(),
         );
         info('Chapters created.');

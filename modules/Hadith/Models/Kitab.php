@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Kitab extends BaseModel
 {
     use ActivityLog, HasFactory, Searchable, SoftDeletes;
-    // use UserStamp;
+    use UserStamp;
 
     protected $table = 'kitabs';
 
@@ -41,5 +41,15 @@ class Kitab extends BaseModel
     public function deletedBy()
     {
         return $this->belongsTo(User::class, 'deleted_by');
+    }
+
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class);
+    }
+
+    public function hadiths()
+    {
+        return $this->hasMany(Hadith::class);
     }
 }

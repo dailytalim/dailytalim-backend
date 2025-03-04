@@ -9,7 +9,8 @@ class KitabValidate extends Request
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'name' => 'required|string|max:255',
+            'active' => 'nullable|boolean',
         ];
     }
 }

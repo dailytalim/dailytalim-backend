@@ -2,8 +2,9 @@
 
 namespace Modules\Hadith\Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
 use Modules\Hadith\Models\Chapter;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ChapterFactory extends Factory
 {
@@ -13,8 +14,12 @@ class ChapterFactory extends Factory
     {
         return [
             'name' => $this->faker->company,
-            'created_at' => $this->faker->dateTimeBetween('-1 year', '-6 month'),
-            'updated_at' => $this->faker->dateTimeBetween('-5 month', 'now'),
+            'active' => $this->faker->boolean(true),
+            
+            'created_by' => User::inRandomOrder()->first()->id ?? null,
+            'updated_by' => User::inRandomOrder()->first()->id ?? null,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
