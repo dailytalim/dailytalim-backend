@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Hadith\Http\Controllers;
 
 use Carbon\Carbon;
@@ -16,13 +17,13 @@ class KitabController extends BackendController
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
-            ->through(fn($kitab) => [
-                'id'     => $kitab->id,
-                'name'   => $kitab->name,
+            ->through(fn ($kitab) => [
+                'id' => $kitab->id,
+                'name' => $kitab->name,
                 'active' => $kitab->active,
 
-                'created_at' => $kitab->created_at->format('d/m/Y H:i') . 'h',
-                'updated_at' => $kitab->updated_at->format('d/m/Y H:i') . 'h',
+                'created_at' => $kitab->created_at->format('d/m/Y H:i').'h',
+                'updated_at' => $kitab->updated_at->format('d/m/Y H:i').'h',
                 'created_by' => $kitab->createdBy?->name,
                 'updated_by' => $kitab->updatedBy?->name,
             ]);
@@ -79,12 +80,12 @@ class KitabController extends BackendController
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
-            ->through(fn($kitab) => [
-                'id'         => $kitab->id,
-                'name'       => $kitab->name,
+            ->through(fn ($kitab) => [
+                'id' => $kitab->id,
+                'name' => $kitab->name,
                 'deleted_at' => $kitab->deleted_at ? Carbon::parse($kitab->deleted_at)->format('d/m/Y') : null,
-                'deletedBy'  => $kitab->deletedBy,
-                'active'     => $kitab->active,
+                'deletedBy' => $kitab->deletedBy,
+                'active' => $kitab->active,
             ]);
 
         return inertia('Kitab/KitabRecycleBin', [

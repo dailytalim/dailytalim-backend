@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Acl\Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -15,9 +16,9 @@ class AclModelHasRolesSeeder extends Seeder
 
         // root
         DB::table('model_has_roles')->insert([
-            'role_id'    => 1,
+            'role_id' => 1,
             'model_type' => 'user',
-            'model_id'   => 1,
+            'model_id' => 1,
         ]);
 
         Schema::enableForeignKeyConstraints();

@@ -1,9 +1,10 @@
 <?php
+
 namespace Modules\Hadith\Http\Requests;
 
 use Illuminate\Validation\Rule;
-use Modules\Hadith\Models\Kitab;
 use Modules\Hadith\Models\Chapter;
+use Modules\Hadith\Models\Kitab;
 use Modules\Support\Http\Requests\Request;
 
 class HadithValidate extends Request
@@ -22,7 +23,7 @@ class HadithValidate extends Request
                 'integer',
                 Rule::exists(Chapter::class, 'id'),
             ],
-            'hadith_number' => 'nullable|string',            
+            'hadith_number' => 'nullable|string',
             'description' => 'required|string',
             'active' => 'nullable|boolean',
             'view_count' => 'nullable|integer',

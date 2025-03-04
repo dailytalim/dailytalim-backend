@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Index\Http\Controllers;
 
 use Modules\Hadith\Models\Hadith;

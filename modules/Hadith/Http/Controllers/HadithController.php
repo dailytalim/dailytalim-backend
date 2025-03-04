@@ -20,25 +20,25 @@ class HadithController extends BackendController
     {
         $hadiths = Hadith::with([
             'kitab',
-            'chapter'
+            'chapter',
         ])
             ->orderBy('id')
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
-            ->through(fn($hadith) => [
-                'id'          => $hadith->id,
+            ->through(fn ($hadith) => [
+                'id' => $hadith->id,
                 'kitab' => $hadith->kitab,
                 'chapter' => $hadith->chapter,
                 'hadith_number' => $hadith->hadith_number,
                 'description' => $hadith->description,
-                'active'      => $hadith->active,
-                'view_count'  => $hadith->view_count,
-                
-                'created_at'  => $hadith->created_at->format('d/m/Y H:i') . 'h',
-                'updated_at'  => $hadith->updated_at->format('d/m/Y H:i') . 'h',
-                'created_by'  => $hadith->createdBy?->name,
-                'updated_by'  => $hadith->updatedBy?->name,
+                'active' => $hadith->active,
+                'view_count' => $hadith->view_count,
+
+                'created_at' => $hadith->created_at->format('d/m/Y H:i').'h',
+                'updated_at' => $hadith->updated_at->format('d/m/Y H:i').'h',
+                'created_by' => $hadith->createdBy?->name,
+                'updated_by' => $hadith->updatedBy?->name,
             ]);
 
         return inertia('Hadith/HadithIndex', [

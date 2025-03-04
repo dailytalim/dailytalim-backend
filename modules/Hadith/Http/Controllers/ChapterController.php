@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Hadith\Http\Controllers;
 
 use Carbon\Carbon;
@@ -13,18 +14,18 @@ class ChapterController extends BackendController
     public function index(): Response
     {
         $chapters = Chapter::with('kitab')
-        ->orderBy('name')
+            ->orderBy('name')
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
-            ->through(fn($chapter) => [
-                'id'     => $chapter->id,
+            ->through(fn ($chapter) => [
+                'id' => $chapter->id,
                 'kitab' => $chapter->kitab,
-                'name'   => $chapter->name,
+                'name' => $chapter->name,
                 'active' => $chapter->active,
 
-                'created_at' => $chapter->created_at->format('d/m/Y H:i') . 'h',
-                'updated_at' => $chapter->updated_at->format('d/m/Y H:i') . 'h',
+                'created_at' => $chapter->created_at->format('d/m/Y H:i').'h',
+                'updated_at' => $chapter->updated_at->format('d/m/Y H:i').'h',
                 'created_by' => $chapter->createdBy?->name,
                 'updated_by' => $chapter->updatedBy?->name,
             ]);
@@ -81,12 +82,12 @@ class ChapterController extends BackendController
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
-            ->through(fn($chapter) => [
-                'id'         => $chapter->id,
-                'name'       => $chapter->name,
+            ->through(fn ($chapter) => [
+                'id' => $chapter->id,
+                'name' => $chapter->name,
                 'deleted_at' => $chapter->deleted_at ? Carbon::parse($chapter->deleted_at)->format('d/m/Y') : null,
-                'deletedBy'  => $chapter->deletedBy,
-                'active'     => $chapter->active,
+                'deletedBy' => $chapter->deletedBy,
+                'active' => $chapter->active,
             ]);
 
         return inertia('Chapter/ChapterRecycleBin', [

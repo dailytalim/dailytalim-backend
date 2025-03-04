@@ -12,7 +12,7 @@ class ChapterValidate extends Request
         return [
             'kitab_id' => Rule::validate([
                 'required',
-                
+
             ]),
             'name' => 'required|string|max:255',
             'active' => 'nullable|boolean',
