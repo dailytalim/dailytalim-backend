@@ -11,6 +11,7 @@
     </div>
 
     <div class="my-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+        <!-- Hadith count card -->
         <DashboardCard
             v-if="can('hadith-list')"
             link="hadith.index"
@@ -20,6 +21,7 @@
             color="success"
         ></DashboardCard>
 
+        <!-- Kitab count card -->
         <DashboardCard
             v-if="can('kitab-list')"
             link="kitab.index"
@@ -29,12 +31,41 @@
             color="success"
         ></DashboardCard>
 
+        <!-- Chapter count card -->
         <DashboardCard
             v-if="can('chapter-list')"
             link="chapter.index"
             label="Chapters"
             :count="props.count.chapters"
             icon="ri-book-read-line"
+            color="success"
+        ></DashboardCard>
+
+        <!-- Post count card -->
+        <DashboardCard
+            v-if="can('Blog')"
+            link="post.index"
+            label="Posts"
+            :count="props.count.posts"
+            icon="ri-article-line"
+            color="success"
+        ></DashboardCard>
+
+        <DashboardCard
+            v-if="can('Blog')"
+            link="category.index"
+            label="Categories"
+            :count="props.count.categories"
+            icon="ri-node-tree-line"
+            color="success"
+        ></DashboardCard>
+
+        <DashboardCard
+            v-if="can('Blog')"
+            link="tag.index"
+            label="Tags"
+            :count="props.count.tags"
+            icon="ri-bookmark-line"
             color="success"
         ></DashboardCard>
 
