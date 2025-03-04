@@ -56,7 +56,7 @@
             link="category.index"
             label="Categories"
             :count="props.count.categories"
-            icon="ri-node-tree-line"
+            icon="ri-node-tree"
             color="success"
         ></DashboardCard>
 
