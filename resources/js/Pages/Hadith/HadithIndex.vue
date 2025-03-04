@@ -43,8 +43,25 @@
                     </AppDataTableData>
 
                     <AppDataTableData>
+                        {{ item.kitab?.name ?? '-' }}
+                    </AppDataTableData>
+
+                    <AppDataTableData>
+                        {{ item.chapter?.name ?? '-' }}
+                    </AppDataTableData>
+
+                    <AppDataTableData>
+                        {{ item.hadith_number ?? '-' }}
+                    </AppDataTableData>
+
+                    <AppDataTableData >
                         {{ item.description }}
                     </AppDataTableData>
+
+                    <AppDataTableData>
+                        {{ item.view_count ?? '-' }}
+                    </AppDataTableData>
+
 
                     <AppDataTableData>
                         <span
@@ -109,7 +126,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Head } from '@inertiajs/vue3'
 import useTitle from '@/Composables/useTitle'
 import useAuthCan from '@/Composables/useAuthCan'
@@ -133,10 +150,11 @@ const breadCrumb = [
     { label: title, last: true }
 ]
 
-const headers = ['SL', 'hadith Name', 'Status', 'Actions']
+const headers = ['SL', 'Kitab', 'Chapter','No', 'Hadith', 'Views', 'Status', 'Actions']
 
 const confirmDialogRef = ref(null)
 const confirmDelete = (deleteRoute) => {
     confirmDialogRef.value.openModal(deleteRoute)
 }
+
 </script>

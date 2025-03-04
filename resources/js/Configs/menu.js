@@ -15,19 +15,19 @@ export default {
                 {
                     label: 'Hadiths',
                     permission: 'hadith-list',
-                    icon: 'ri-draft-line',
+                    icon: 'ri-book-open-line',
                     link: route('hadith.index')
                 },
                 {
                     label: 'Chapters',
                     permission: 'chapter-list',
-                    icon: 'ri-folders-line',
+                    icon: 'ri-book-read-line',
                     link: route('chapter.index')
                 },
                 {
                     label: 'Kitabs',
                     permission: 'kitab-list',
-                    icon: 'ri-price-tag-3-line',
+                    icon: 'ri-book-marked-line',
                     link: route('kitab.index')
                 }
             ]

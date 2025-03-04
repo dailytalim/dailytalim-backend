@@ -3,8 +3,9 @@
 namespace Modules\Hadith\Database\Factories;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Hadith\Models\Kitab;
 use Modules\Hadith\Models\Chapter;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ChapterFactory extends Factory
 {
@@ -13,6 +14,7 @@ class ChapterFactory extends Factory
     public function definition(): array
     {
         return [
+            'kitab_id' => Kitab::inRandomOrder()->first()->id ?? null,
             'name' => $this->faker->company,
             'active' => $this->faker->boolean(true),
 

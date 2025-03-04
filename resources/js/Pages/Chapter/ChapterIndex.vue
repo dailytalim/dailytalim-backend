@@ -43,7 +43,15 @@
                     </AppDataTableData>
 
                     <AppDataTableData>
+                        {{ item.kitab?.name ?? '-' }}
+                    </AppDataTableData>
+
+                    <AppDataTableData>
                         {{ item.name }}
+                    </AppDataTableData>
+
+                    <AppDataTableData>
+                        {{ item.hadiths }}
                     </AppDataTableData>
 
                     <AppDataTableData>
@@ -114,7 +122,7 @@ import { Head } from '@inertiajs/vue3'
 import useTitle from '@/Composables/useTitle'
 import useAuthCan from '@/Composables/useAuthCan'
 
-const { title } = useTitle('chapters')
+const { title } = useTitle('Chapters')
 const { can } = useAuthCan()
 
 const props = defineProps({
@@ -133,7 +141,7 @@ const breadCrumb = [
     { label: title, last: true }
 ]
 
-const headers = ['SL', 'chapter Name', 'Status', 'Actions']
+const headers = ['SL', 'Kitab Name', 'Chapter Name', 'Hadiths', 'Status', 'Actions']
 
 const confirmDialogRef = ref(null)
 const confirmDelete = (deleteRoute) => {

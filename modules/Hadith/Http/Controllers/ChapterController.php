@@ -22,6 +22,7 @@ class ChapterController extends BackendController
                 'id' => $chapter->id,
                 'kitab' => $chapter->kitab,
                 'name' => $chapter->name,
+                'hadiths' => $chapter->hadiths()->count(),
                 'active' => $chapter->active,
 
                 'created_at' => $chapter->created_at->format('d/m/Y H:i').'h',
