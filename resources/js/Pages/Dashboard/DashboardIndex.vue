@@ -11,6 +11,33 @@
     </div>
 
     <div class="my-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+        <DashboardCard
+            v-if="can('hadith-list')"
+            link="hadith.index"
+            label="Hadiths"
+            :count="props.count.hadiths"
+            icon="ri-book-open-line"
+            color="success"
+        ></DashboardCard>
+
+        <DashboardCard
+            v-if="can('kitab-list')"
+            link="kitab.index"
+            label="Kitabs"
+            :count="props.count.kitabs"
+            icon="ri-book-marked-line"
+            color="success"
+        ></DashboardCard>
+
+        <DashboardCard
+            v-if="can('chapter-list')"
+            link="chapter.index"
+            label="Chapters"
+            :count="props.count.chapters"
+            icon="ri-book-read-line"
+            color="success"
+        ></DashboardCard>
+
         <!-- User Count Card -->
         <DashboardCard
             v-if="can('Acl')"
@@ -40,6 +67,8 @@
             icon="ri-shield-keyhole-line"
             color="success"
         ></DashboardCard>
+
+        
     </div>
 </template>
 <script setup>
