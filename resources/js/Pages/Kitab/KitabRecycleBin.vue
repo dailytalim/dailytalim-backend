@@ -15,7 +15,7 @@
                 <AppButton
                     v-if="can('kitab-recycle-bin-restore')"
                     class="btn btn-primary"
-                    @click="$inertia.visit(route('kitab.RecycleBin.restore'))"
+                    @click="$inertia.visit(route('kitab.recycleBin.restoreAll'))"
                 >
                     <i class="ri-recycle-fill mr-1"></i>
                     Restore Recycle Bin
@@ -35,7 +35,7 @@
 
     <AppDataSearch
         v-if="kitabs.data.length || route().params.searchTerm"
-        :url="route('kitab.recycleBin')"
+        :url="route('kitab.recycleBin.index')"
         fields-to-search="name"
     ></AppDataSearch>
 
@@ -76,7 +76,7 @@
                                 class="btn btn-icon btn-primary"
                                 @click="
                                     $inertia.visit(
-                                        route('kitab.restore', item.id)
+                                        route('kitab.recycleBin.restore', item.id)
                                     )
                                 "
                             >
@@ -93,7 +93,7 @@
                                 class="btn btn-icon btn-destructive"
                                 @click="
                                     confirmDelete(
-                                        route('kitab.destroyForce', item.id)
+                                        route('kitab.recycleBin.destroyForce', item.id)
                                     )
                                 "
                             >
@@ -128,7 +128,7 @@ import useTitle from '@/Composables/useTitle'
 import useAuthCan from '@/Composables/useAuthCan'
 
 const { can } = useAuthCan()
-const { title } = useTitle('SMS Gateway Recycle Bin')
+const { title } = useTitle('Kitab Recycle Bin')
 
 const props = defineProps({
     kitabs: {

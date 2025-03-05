@@ -22,5 +22,13 @@ trait UserStamp
                 $model->updated_by = Auth::id();
             }
         });
+
+        // Automatically set `deleted_by` on deletion (Soft Deletes)
+        static::deleting(function ($model) {
+            if (Auth::check() && in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model))) {
+                $model->deleted_by = Auth::id();
+                $model->save(); // Save `deleted_by` before soft delete happens
+            }
+        });
     }
 }

@@ -99,7 +99,7 @@ class KitabController extends BackendController
     {
         Kitab::onlyTrashed()->findOrFail($id)->restore(); // Restore soft deleted record
 
-        return redirect()->route('kitab.recycleBin')
+        return redirect()->route('kitab.recycleBin.index')
             ->with('success', 'KitabRestored.');
     }
 
@@ -110,7 +110,7 @@ class KitabController extends BackendController
 
         $kitab->forceDelete();
 
-        return redirect()->route('kitab.recycleBin')->with('success', 'Kitab deleted.');
+        return redirect()->route('kitab.recycleBin.index')->with('success', 'Kitab deleted.');
     }
 
     public function emptyRecycleBin(): RedirectResponse
@@ -121,7 +121,7 @@ class KitabController extends BackendController
             $kitab->forceDelete();
         }
 
-        return redirect()->route('kitab.recycleBin')
+        return redirect()->route('kitab.recycleBin.index')
             ->with('success', 'Recycle bin emptied.');
     }
 
@@ -129,7 +129,7 @@ class KitabController extends BackendController
     {
         Kitab::onlyTrashed()->restore(); // Restore soft deleted records
 
-        return redirect()->route('kitab.recycleBin')
+        return redirect()->route('kitab.recycleBin.index')
             ->with('success', 'Kitab Restored.');
     }
 }

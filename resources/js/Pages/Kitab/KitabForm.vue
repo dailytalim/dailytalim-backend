@@ -81,9 +81,8 @@ const breadCrumb = [
 ]
 
 const form = useForm({
-    name: props.category ? props.category.name : '',
-    description: props.category ? props.category.description : '',
-    active: props.category ? props.category.active : ''
+    name: props.kitab ? props.kitab.name : '',
+    active: props.kitab ? props.kitab.active : ''
 })
 
 const { isCreate } = useFormContext()
