@@ -4,6 +4,7 @@ namespace Modules\Hadith\Http\Controllers;
 
 use Carbon\Carbon;
 use Inertia\Response;
+use Modules\Hadith\Models\Kitab;
 use Modules\Hadith\Models\Hadith;
 use Illuminate\Http\RedirectResponse;
 use Modules\Support\Traits\UploadFile;
@@ -51,7 +52,9 @@ class HadithController extends BackendController
 
     public function create(): Response
     {
-        return inertia('Hadith/HadithForm');
+        return inertia('Hadith/HadithForm', [
+            'kitabs' => Kitab::with('chapters')->get(),
+        ]);
     }
 
     public function store(HadithValidate $request): RedirectResponse
@@ -68,6 +71,7 @@ class HadithController extends BackendController
 
         return inertia('Hadith/HadithForm', [
             'hadith' => $hadith,
+            'kitabs' => Kitab::with('chapters')->get(),
         ]);
     }
 
