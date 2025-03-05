@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('kitab_id')->nullable()->constrained('kitabs')->cascadeOnDelete();
             $table->string('name');
-            $table->boolean('active')->default(true);
+            $table->boolean('active')->nullable()->default(true);
 
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();

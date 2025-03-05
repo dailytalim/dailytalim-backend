@@ -15,7 +15,7 @@
                 <AppButton
                     v-if="can('chapter-recycle-bin-restore')"
                     class="btn btn-primary"
-                    @click="$inertia.visit(route('chapter.RecycleBin.restore'))"
+                    @click="$inertia.visit(route('chapter.recycleBin.restoreAll'))"
                 >
                     <i class="ri-recycle-fill mr-1"></i>
                     Restore Recycle Bin
@@ -35,7 +35,7 @@
 
     <AppDataSearch
         v-if="chapters.data.length || route().params.searchTerm"
-        :url="route('chapter.recycleBin')"
+        :url="route('chapter.recycleBin.index')"
         fields-to-search="name"
     ></AppDataSearch>
 
@@ -76,7 +76,7 @@
                                 class="btn btn-icon btn-primary"
                                 @click="
                                     $inertia.visit(
-                                        route('chapter.restore', item.id)
+                                        route('chapter.recycleBin.restore', item.id)
                                     )
                                 "
                             >
@@ -93,7 +93,7 @@
                                 class="btn btn-icon btn-destructive"
                                 @click="
                                     confirmDelete(
-                                        route('chapter.destroyForce', item.id)
+                                        route('chapter.recycleBin.destroyForce', item.id)
                                     )
                                 "
                             >
@@ -128,7 +128,7 @@ import useTitle from '@/Composables/useTitle'
 import useAuthCan from '@/Composables/useAuthCan'
 
 const { can } = useAuthCan()
-const { title } = useTitle('SMS Gateway Recycle Bin')
+const { title } = useTitle('Chapter Recycle Bin')
 
 const props = defineProps({
     chapters: {
@@ -139,11 +139,11 @@ const props = defineProps({
 
 const breadCrumb = [
     { label: 'Home', href: route('dashboard.index') },
-    { label: 'chapters', href: route('chapter.index') },
+    { label: 'Chapters', href: route('chapter.index') },
     { label: title, last: true }
 ]
 
-const headers = ['SL', 'chapter Name', 'Deleted At', 'Deleted By', 'Actions']
+const headers = ['SL', 'Chapter Name', 'Deleted At', 'Deleted By', 'Actions']
 
 const confirmDialogRef = ref(null)
 const confirmDelete = (deleteRoute) => {

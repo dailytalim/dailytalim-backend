@@ -3,10 +3,11 @@
 namespace Modules\Hadith\Http\Controllers;
 
 use Carbon\Carbon;
-use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
-use Modules\Hadith\Http\Requests\ChapterValidate;
 use Modules\Hadith\Models\Chapter;
+use Illuminate\Http\RedirectResponse;
+use Modules\Hadith\Services\KitabOptions;
+use Modules\Hadith\Http\Requests\ChapterValidate;
 use Modules\Support\Http\Controllers\BackendController;
 
 class ChapterController extends BackendController
@@ -14,7 +15,8 @@ class ChapterController extends BackendController
     public function index(): Response
     {
         $chapters = Chapter::with('kitab')
-            ->orderBy('name')
+            ->orderBy('kitab_id', 'asc')
+            ->orderBy('name', 'asc')
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
@@ -38,7 +40,9 @@ class ChapterController extends BackendController
 
     public function create(): Response
     {
-        return inertia('Chapter/ChapterForm');
+        return inertia('Chapter/ChapterForm', [
+            'kitabs' => KitabOptions::get(),
+        ]);
     }
 
     public function store(ChapterValidate $request): RedirectResponse
@@ -54,7 +58,8 @@ class ChapterController extends BackendController
         $chapter = Chapter::find($id);
 
         return inertia('Chapter/ChapterForm', [
-            'Chapter' => $chapter,
+            'chapter' => $chapter,
+            'kitabs' => KitabOptions::get(),
         ]);
     }
 
@@ -100,7 +105,7 @@ class ChapterController extends BackendController
     {
         Chapter::onlyTrashed()->findOrFail($id)->restore(); // Restore soft deleted record
 
-        return redirect()->route('chapter.recycleBin')
+        return redirect()->route('chapter.recycleBin.index')
             ->with('success', 'ChapterRestored.');
     }
 
@@ -111,7 +116,7 @@ class ChapterController extends BackendController
 
         $chapter->forceDelete();
 
-        return redirect()->route('chapter.recycleBin')->with('success', 'Chapterdeleted.');
+        return redirect()->route('chapter.recycleBin.index')->with('success', 'Chapterdeleted.');
     }
 
     public function emptyRecycleBin(): RedirectResponse
@@ -122,7 +127,7 @@ class ChapterController extends BackendController
             $chapter->forceDelete();
         }
 
-        return redirect()->route('chapter.recycleBin')
+        return redirect()->route('chapter.recycleBin.index')
             ->with('success', 'Recycle bin emptied.');
     }
 
@@ -130,7 +135,7 @@ class ChapterController extends BackendController
     {
         Chapter::onlyTrashed()->restore(); // Restore soft deleted records
 
-        return redirect()->route('chapter.recycleBin')
+        return redirect()->route('chapter.recycleBin.index')
             ->with('success', 'Chapter Restored.');
     }
 }
