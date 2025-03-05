@@ -2,13 +2,14 @@
 
 namespace Modules\Hadith\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
+use Carbon\Carbon;
 use Inertia\Response;
-use Modules\Hadith\Http\Requests\HadithValidate;
 use Modules\Hadith\Models\Hadith;
-use Modules\Support\Http\Controllers\BackendController;
-use Modules\Support\Traits\EditorImage;
+use Illuminate\Http\RedirectResponse;
 use Modules\Support\Traits\UploadFile;
+use Modules\Support\Traits\EditorImage;
+use Modules\Hadith\Http\Requests\HadithValidate;
+use Modules\Support\Http\Controllers\BackendController;
 
 class HadithController extends BackendController
 {
@@ -22,7 +23,9 @@ class HadithController extends BackendController
             'kitab',
             'chapter',
         ])
-            ->orderBy('id')
+            ->orderBy('kitab_id', 'asc')
+            ->orderBy('Hadith_id', 'asc')
+            ->orderBy('hadith_number', 'asc')
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
@@ -84,5 +87,63 @@ class HadithController extends BackendController
 
         return redirect()->route('hadith.index')
             ->with('success', 'Hadith deleted.');
+    }
+
+    public function recycleBin(): Response
+    {
+        $hadiths = Hadith::onlyTrashed()
+            ->orderBy('id')
+            ->search(request('searchContext'), request('searchTerm'))
+            ->paginate(request('rowsPerPage', 10))
+            ->withQueryString()
+            ->through(fn ($hadith) => [
+                'id' => $hadith->id,
+                'name' => $hadith->name,
+                'deleted_at' => $hadith->deleted_at ? Carbon::parse($hadith->deleted_at)->format('d/m/Y') : null,
+                'deletedBy' => $hadith->deletedBy,
+                'active' => $hadith->active,
+            ]);
+
+        return inertia('Hadith/HadithRecycleBin', [
+            'hadiths' => $hadiths,
+        ]);
+    }
+
+    public function restore(int $id): RedirectResponse
+    {
+        Hadith::onlyTrashed()->findOrFail($id)->restore(); // Restore soft deleted record
+
+        return redirect()->route('hadith.recycleBin.index')
+            ->with('success', 'Hadith Restored.');
+    }
+
+    public function destroyForce(int $id): RedirectResponse
+    {
+
+        $hadith = Hadith::onlyTrashed()->findOrFail($id);
+
+        $hadith->forceDelete();
+
+        return redirect()->route('hadith.recycleBin.index')->with('success', 'Hadith Deleted.');
+    }
+
+    public function emptyRecycleBin(): RedirectResponse
+    {
+        $hadiths = Hadith::onlyTrashed()->get();
+
+        foreach ($hadiths as $hadith) {
+            $hadith->forceDelete();
+        }
+
+        return redirect()->route('hadith.recycleBin.index')
+            ->with('success', 'Recycle bin emptied.');
+    }
+
+    public function restoreRecycleBin(): RedirectResponse
+    {
+        Hadith::onlyTrashed()->restore(); // Restore soft deleted records
+
+        return redirect()->route('hadith.recycleBin.index')
+            ->with('success', 'Hadith Restored.');
     }
 }

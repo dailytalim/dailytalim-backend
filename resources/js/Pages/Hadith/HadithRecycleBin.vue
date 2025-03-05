@@ -15,7 +15,7 @@
                 <AppButton
                     v-if="can('hadith-recycle-bin-restore')"
                     class="btn btn-primary"
-                    @click="$inertia.visit(route('hadith.RecycleBin.restore'))"
+                    @click="$inertia.visit(route('hadith.recycleBin.restoreAll'))"
                 >
                     <i class="ri-recycle-fill mr-1"></i>
                     Restore Recycle Bin
@@ -35,7 +35,7 @@
 
     <AppDataSearch
         v-if="hadiths.data.length || route().params.searchTerm"
-        :url="route('hadith.recycleBin')"
+        :url="route('hadith.recycleBin.index')"
         fields-to-search="name"
     ></AppDataSearch>
 
@@ -54,7 +54,7 @@
                     </AppDataTableData>
 
                     <AppDataTableData>
-                        {{ item.name }}
+                        {{ item.hadith_number }}
                     </AppDataTableData>
 
                     <AppDataTableData>
@@ -76,7 +76,7 @@
                                 class="btn btn-icon btn-primary"
                                 @click="
                                     $inertia.visit(
-                                        route('hadith.restore', item.id)
+                                        route('hadith.recycleBin.restore', item.id)
                                     )
                                 "
                             >
@@ -93,7 +93,7 @@
                                 class="btn btn-icon btn-destructive"
                                 @click="
                                     confirmDelete(
-                                        route('hadith.destroyForce', item.id)
+                                        route('hadith.recycleBin.destroyForce', item.id)
                                     )
                                 "
                             >
@@ -128,7 +128,7 @@ import useTitle from '@/Composables/useTitle'
 import useAuthCan from '@/Composables/useAuthCan'
 
 const { can } = useAuthCan()
-const { title } = useTitle('SMS Gateway Recycle Bin')
+const { title } = useTitle('Hadith Recycle Bin')
 
 const props = defineProps({
     hadiths: {
@@ -139,11 +139,11 @@ const props = defineProps({
 
 const breadCrumb = [
     { label: 'Home', href: route('dashboard.index') },
-    { label: 'hadiths', href: route('hadith.index') },
+    { label: 'Hadiths', href: route('hadith.index') },
     { label: title, last: true }
 ]
 
-const headers = ['SL', 'hadith Name', 'Deleted At', 'Deleted By', 'Actions']
+const headers = ['SL', 'Hadith Number', 'Deleted At', 'Deleted By', 'Actions']
 
 const confirmDialogRef = ref(null)
 const confirmDelete = (deleteRoute) => {

@@ -131,7 +131,7 @@ import { Head } from '@inertiajs/vue3'
 import useTitle from '@/Composables/useTitle'
 import useAuthCan from '@/Composables/useAuthCan'
 
-const { title } = useTitle('hadiths')
+const { title } = useTitle('Hadiths')
 const { can } = useAuthCan()
 
 const props = defineProps({
