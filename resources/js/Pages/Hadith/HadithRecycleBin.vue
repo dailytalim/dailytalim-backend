@@ -15,7 +15,9 @@
                 <AppButton
                     v-if="can('hadith-recycle-bin-restore')"
                     class="btn btn-primary"
-                    @click="$inertia.visit(route('hadith.recycleBin.restoreAll'))"
+                    @click="
+                        $inertia.visit(route('hadith.recycleBin.restoreAll'))
+                    "
                 >
                     <i class="ri-recycle-fill mr-1"></i>
                     Restore Recycle Bin
@@ -54,7 +56,7 @@
                     </AppDataTableData>
 
                     <AppDataTableData>
-                        {{ item.hadith_number }}
+                        {{ item.hadith_no }}
                     </AppDataTableData>
 
                     <AppDataTableData>
@@ -76,7 +78,10 @@
                                 class="btn btn-icon btn-primary"
                                 @click="
                                     $inertia.visit(
-                                        route('hadith.recycleBin.restore', item.id)
+                                        route(
+                                            'hadith.recycleBin.restore',
+                                            item.id
+                                        )
                                     )
                                 "
                             >
@@ -93,7 +98,10 @@
                                 class="btn btn-icon btn-destructive"
                                 @click="
                                     confirmDelete(
-                                        route('hadith.recycleBin.destroyForce', item.id)
+                                        route(
+                                            'hadith.recycleBin.destroyForce',
+                                            item.id
+                                        )
                                     )
                                 "
                             >

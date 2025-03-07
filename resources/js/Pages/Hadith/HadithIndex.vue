@@ -51,17 +51,16 @@
                     </AppDataTableData>
 
                     <AppDataTableData>
-                        {{ item.hadith_number ?? '-' }}
+                        {{ item.hadith_no ?? '-' }}
                     </AppDataTableData>
 
-                    <AppDataTableData >
-                        {{ item.description }}
+                    <AppDataTableData>
+                        {{ item.bn }}
                     </AppDataTableData>
 
                     <AppDataTableData>
                         {{ item.view_count ?? '-' }}
                     </AppDataTableData>
-
 
                     <AppDataTableData>
                         <span
@@ -150,11 +149,19 @@ const breadCrumb = [
     { label: title, last: true }
 ]
 
-const headers = ['SL', 'Kitab', 'Chapter','No', 'Hadith', 'Views', 'Status', 'Actions']
+const headers = [
+    'SL',
+    'Kitab',
+    'Chapter',
+    'No',
+    'Hadith',
+    'Views',
+    'Status',
+    'Actions'
+]
 
 const confirmDialogRef = ref(null)
 const confirmDelete = (deleteRoute) => {
     confirmDialogRef.value.openModal(deleteRoute)
 }
-
 </script>

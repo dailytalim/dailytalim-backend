@@ -1,5 +1,4 @@
 <?php
-
 namespace Modules\Hadith\Http\Requests;
 
 use Illuminate\Validation\Rule;
@@ -12,7 +11,7 @@ class HadithValidate extends Request
     public function rules(): array
     {
         return [
-            'kitab_id' => [
+            'kitab_id'   => [
                 'required',
                 'integer',
                 Rule::exists(Kitab::class, 'id'),
@@ -23,9 +22,11 @@ class HadithValidate extends Request
                 'integer',
                 Rule::exists(Chapter::class, 'id'),
             ],
-            'hadith_number' => 'nullable|string',
-            'description' => 'required|string',
-            'active' => 'nullable|boolean',
+            'hadith_no'  => 'nullable|string',
+            'ar'         => 'nullable|string',
+            'bn'         => 'nullable|string',
+            'en'         => 'nullable|string',
+            'active'     => 'nullable|boolean',
             'view_count' => 'nullable|integer',
         ];
     }

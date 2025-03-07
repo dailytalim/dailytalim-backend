@@ -9,24 +9,39 @@
         </template>
         <template #content>
             <AppFormErrors class="mb-4" />
-            <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <form class="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
                     <AppLabel for="kitab_id">{{ __('Kitab') }}</AppLabel>
-                    <AppCombobox v-model="form.kitab_id" :options="kitabOptions" combo-label="Select a Kitab"
-                        class="w-full" />
+                    <AppCombobox
+                        v-model="form.kitab_id"
+                        :options="kitabOptions"
+                        combo-label="Select a Kitab"
+                        class="w-full"
+                    />
                 </div>
 
                 <div>
                     <AppLabel for="chapter_id">{{ __('Chapter') }}</AppLabel>
-                    <AppCombobox v-model="form.chapter_id" :options="chapterOptions" combo-label="Select a Chapter"
-                        class="w-full" />
+                    <AppCombobox
+                        v-model="form.chapter_id"
+                        :options="chapterOptions"
+                        combo-label="Select a Chapter"
+                        class="w-full"
+                    />
                 </div>
 
                 <div>
-                    <AppLabel for="hadith_number">{{ __('Hadith Number') }}</AppLabel>
-                    <AppInputText id="hadith_number" v-model="form.hadith_number" type="text" :class="{
-                        'input-error': errorsFields.includes('hadith_number')
-                    }" />
+                    <AppLabel for="hadith_no">{{
+                        __('Hadith Number')
+                    }}</AppLabel>
+                    <AppInputText
+                        id="hadith_no"
+                        v-model="form.hadith_no"
+                        type="text"
+                        :class="{
+                            'input-error': errorsFields.includes('hadith_no')
+                        }"
+                    />
                 </div>
 
                 <div class="mt-5 flex items-center">
@@ -40,17 +55,40 @@
                 </div>
 
                 <div class="md:col-span-2">
-                    <AppLabel for="description">Description</AppLabel>
+                    <AppLabel for="ar">Arabic</AppLabel>
                     <AppTipTapEditor
-                        v-model="form.description"
-                        editor-id="description"
+                        v-model="form.ar"
+                        editor-id="ar"
                         :class="{
-                            'app-tip-tap-error':
-                                errorsFields.includes('description')
+                            'app-tip-tap-error': errorsFields.includes('ar')
                         }"
                         :file-upload-url="route('hadith.uploadEditorImage')"
                     />
-                </div>                
+                </div>
+
+                <div class="md:col-span-2">
+                    <AppLabel for="bn">Bangla</AppLabel>
+                    <AppTipTapEditor
+                        v-model="form.bn"
+                        editor-id="bn"
+                        :class="{
+                            'app-tip-tap-error': errorsFields.includes('bn')
+                        }"
+                        :file-upload-url="route('hadith.uploadEditorImage')"
+                    />
+                </div>
+
+                <div class="md:col-span-2">
+                    <AppLabel for="en">English</AppLabel>
+                    <AppTipTapEditor
+                        v-model="form.en"
+                        editor-id="en"
+                        :class="{
+                            'app-tip-tap-error': errorsFields.includes('en')
+                        }"
+                        :file-upload-url="route('hadith.uploadEditorImage')"
+                    />
+                </div>
             </form>
         </template>
         <template #footer>
@@ -74,13 +112,11 @@ const props = defineProps({
         type: Object,
         default: null
     },
-    kitabs : {
+    kitabs: {
         type: Object,
         default: null
     }
 })
-
-
 
 const { title } = useTitle('hadith')
 
@@ -93,13 +129,14 @@ const breadCrumb = [
 const form = useForm({
     kitab_id: props.hadith ? props.hadith.kitab_id : '',
     chapter_id: props.hadith ? props.hadith.chapter_id : '',
-    hadith_number: props.hadith ? props.hadith.hadith_number : '',
+    hadith_no: props.hadith ? props.hadith.hadith_no : '',
     active: props.hadith ? props.hadith.active : true,
-    description: props.hadith ? props.hadith.description : '',
+    ar: props.hadith ? props.hadith.ar : '',
+    bn: props.hadith ? props.hadith.bn : '',
+    en: props.hadith ? props.hadith.en : ''
 })
 
 const { kitabOptions, chapterOptions } = useFormKitabOptions(props, form)
-
 
 const { isCreate } = useFormContext()
 

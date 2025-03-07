@@ -1,16 +1,15 @@
 <?php
-
 namespace Modules\Hadith\Http\Controllers;
 
 use Carbon\Carbon;
-use Inertia\Response;
-use Modules\Hadith\Models\Kitab;
-use Modules\Hadith\Models\Hadith;
 use Illuminate\Http\RedirectResponse;
-use Modules\Support\Traits\UploadFile;
-use Modules\Support\Traits\EditorImage;
+use Inertia\Response;
 use Modules\Hadith\Http\Requests\HadithValidate;
+use Modules\Hadith\Models\Hadith;
+use Modules\Hadith\Models\Kitab;
 use Modules\Support\Http\Controllers\BackendController;
+use Modules\Support\Traits\EditorImage;
+use Modules\Support\Traits\UploadFile;
 
 class HadithController extends BackendController
 {
@@ -26,21 +25,23 @@ class HadithController extends BackendController
         ])
             ->orderBy('kitab_id', 'asc')
             ->orderBy('Hadith_id', 'asc')
-            ->orderBy('hadith_number', 'asc')
+            ->orderBy('hadith_no', 'asc')
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
-            ->through(fn ($hadith) => [
-                'id' => $hadith->id,
-                'kitab' => $hadith->kitab,
-                'chapter' => $hadith->chapter,
-                'hadith_number' => $hadith->hadith_number,
-                'description' => $hadith->description,
-                'active' => $hadith->active,
+            ->through(fn($hadith) => [
+                'id'         => $hadith->id,
+                'kitab'      => $hadith->kitab,
+                'chapter'    => $hadith->chapter,
+                'hadith_no'  => $hadith->hadith_no,
+                'ar'         => $hadith->ar,
+                'bn'         => $hadith->bn,
+                'en'         => $hadith->en,
+                'active'     => $hadith->active,
                 'view_count' => $hadith->view_count,
 
-                'created_at' => $hadith->created_at->format('d/m/Y H:i').'h',
-                'updated_at' => $hadith->updated_at->format('d/m/Y H:i').'h',
+                'created_at' => $hadith->created_at->format('d/m/Y H:i') . 'h',
+                'updated_at' => $hadith->updated_at->format('d/m/Y H:i') . 'h',
                 'created_by' => $hadith->createdBy?->name,
                 'updated_by' => $hadith->updatedBy?->name,
             ]);
@@ -100,12 +101,14 @@ class HadithController extends BackendController
             ->search(request('searchContext'), request('searchTerm'))
             ->paginate(request('rowsPerPage', 10))
             ->withQueryString()
-            ->through(fn ($hadith) => [
-                'id' => $hadith->id,
-                'name' => $hadith->name,
+            ->through(fn($hadith) => [
+                'id'         => $hadith->id,
+                'ar'         => $hadith->ar,
+                'bn'         => $hadith->bn,
+                'en'         => $hadith->en,
                 'deleted_at' => $hadith->deleted_at ? Carbon::parse($hadith->deleted_at)->format('d/m/Y') : null,
-                'deletedBy' => $hadith->deletedBy,
-                'active' => $hadith->active,
+                'deletedBy'  => $hadith->deletedBy,
+                'active'     => $hadith->active,
             ]);
 
         return inertia('Hadith/HadithRecycleBin', [
