@@ -9,7 +9,20 @@ class IndexController extends SiteController
 {
     public function index()
     {
-        $kitabs = Kitab::select('id', 'name') // Select only needed columns
+        
+
+        $todaysHadith = Hadith::inRandomOrder()->select('ar','bn','en')->first();
+
+        return [
+            'todaysHadith' => $todaysHadith,
+        ];
+
+        // return view('index::index', compact('hadith'));
+    }
+
+    public function hadiths()
+    {
+        return  Kitab::select('id', 'name') // Select only needed columns
             ->with([
                 'chapters'         => function ($query) {
                     $query->select('id', 'kitab_id', 'name'); // Select only necessary columns for chapters
