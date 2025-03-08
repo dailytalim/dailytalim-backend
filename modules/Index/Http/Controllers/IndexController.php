@@ -10,13 +10,11 @@ class IndexController extends SiteController
 {
     public function index()
     {
-        $todaysHadith = Hadith::inRandomOrder()->select('ar', 'bn', 'en')->first();
+        $todaysHadith = Hadith::inRandomOrder()->select('id','ar', 'bn', 'en')->first();
 
         return [
             'todaysHadith' => $todaysHadith,
         ];
-
-        // return view('index::index', compact('hadith'));
     }
 
     public function hadiths()
