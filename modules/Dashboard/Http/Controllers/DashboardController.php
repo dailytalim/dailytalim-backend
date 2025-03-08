@@ -4,15 +4,15 @@ namespace Modules\Dashboard\Http\Controllers;
 
 use App\Models\User;
 use Inertia\Inertia;
-use Modules\Blog\Models\Tag;
-use Modules\Blog\Models\Post;
-use Modules\Hadith\Models\Kitab;
 use Modules\Blog\Models\Category;
-use Modules\Hadith\Models\Hadith;
+use Modules\Blog\Models\Post;
+use Modules\Blog\Models\Tag;
 use Modules\Hadith\Models\Chapter;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use Modules\Hadith\Models\Hadith;
+use Modules\Hadith\Models\Kitab;
 use Modules\Support\Http\Controllers\BackendController;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DashboardController extends BackendController
 {

@@ -3,11 +3,11 @@
 namespace Modules\Hadith\Http\Controllers;
 
 use Carbon\Carbon;
-use Inertia\Response;
-use Modules\Hadith\Models\Chapter;
 use Illuminate\Http\RedirectResponse;
-use Modules\Hadith\Services\KitabOptions;
+use Inertia\Response;
 use Modules\Hadith\Http\Requests\ChapterValidate;
+use Modules\Hadith\Models\Chapter;
+use Modules\Hadith\Services\KitabOptions;
 use Modules\Support\Http\Controllers\BackendController;
 
 class ChapterController extends BackendController

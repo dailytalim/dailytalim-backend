@@ -3,9 +3,9 @@
 namespace Modules\Hadith\Database\Factories;
 
 use App\Models\User;
-use Modules\Hadith\Models\Kitab;
-use Modules\Hadith\Models\Chapter;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Hadith\Models\Chapter;
+use Modules\Hadith\Models\Kitab;
 
 class ChapterFactory extends Factory
 {

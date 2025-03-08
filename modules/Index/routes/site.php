@@ -7,7 +7,6 @@ Route::get('/', [
     IndexController::class, 'index',
 ])->name('index.index');
 
-
 Route::get('/hadiths', [
     IndexController::class, 'hadiths',
 ])->name('index.hadiths');

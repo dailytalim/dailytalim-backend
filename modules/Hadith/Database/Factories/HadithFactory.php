@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Hadith\Database\Factories;
 
 use App\Models\User;
@@ -14,13 +15,13 @@ class HadithFactory extends Factory
     public function definition(): array
     {
         return [
-            'kitab_id'   => Kitab::inRandomOrder()->first()->id,
+            'kitab_id' => Kitab::inRandomOrder()->first()->id,
             'chapter_id' => Chapter::inRandomOrder()->first()->id,
-            'hadith_no'  => $this->faker->numberBetween(1, 1000),
-            'ar'         => $this->faker->text,
-            'bn'         => $this->faker->text,
-            'en'         => $this->faker->text,
-            'active'     => $this->faker->boolean(true),
+            'hadith_no' => $this->faker->numberBetween(1, 1000),
+            'ar' => $this->faker->text,
+            'bn' => $this->faker->text,
+            'en' => $this->faker->text,
+            'active' => $this->faker->boolean(true),
             'view_count' => $this->faker->numberBetween(1, 1000),
 
             'created_by' => User::inRandomOrder()->first()->id ?? null,
