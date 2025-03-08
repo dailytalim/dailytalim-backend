@@ -8,6 +8,17 @@ use Modules\Support\Http\Controllers\SiteController;
 class IndexController extends SiteController
 {
     public function index()
+    {      
+        $todaysHadith = Hadith::inRandomOrder()->select('ar','bn','en')->first();
+
+        return [
+            'todaysHadith' => $todaysHadith,
+        ];
+
+        // return view('index::index', compact('hadith'));
+    }
+
+    public function hadiths()
     {
         $kitabs = Kitab::select('id', 'name') // Select only needed columns
             ->with([
@@ -16,16 +27,8 @@ class IndexController extends SiteController
                 },
                 'chapters.hadiths' => function ($query) {
                     $query->select('id', 'chapter_id', 'ar', 'bn', 'en'); // Select only necessary columns for hadiths
-                },
+
+                }
             ])->get();
-
-        $todaysHadith = Hadith::inRandomOrder()->select('ar', 'bn', 'en')->first();
-
-        return [
-            'kitabs'       => $kitabs,
-            'todaysHadith' => $todaysHadith,
-        ];
-
-        // return view('index::index', compact('hadith'));
     }
 }
