@@ -9,12 +9,13 @@
         "php": "^8.2",
         "daniel-cintra/modular": "^0.4.6",
         "daniel-cintra/modular-blog": "^0.4.0",
+        "doctrine/orm": "^3.3",
         "intervention/image-laravel": "^1.3",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.23",
+        "fakerphp/faker": "^1.24",
         "laravel/pail": "^1.1",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
