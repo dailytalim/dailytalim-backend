@@ -1,5 +1,7 @@
 <?php
 
+use Modules\Message\MessageServiceProvider;
+
 return [
     App\Providers\AppServiceProvider::class,
 
@@ -12,4 +14,6 @@ return [
     Modules\Index\IndexServiceProvider::class,
     Modules\Blog\BlogServiceProvider::class,
     Modules\Hadith\HadithServiceProvider::class,
+
+    MessageServiceProvider::class,
 ];

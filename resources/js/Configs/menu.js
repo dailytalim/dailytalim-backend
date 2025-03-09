@@ -9,6 +9,13 @@ export default {
         },
 
         {
+            label: 'Messages',
+            permission: 'message-list',
+            icon: 'ri-mail-send-line',
+            link: route('message.index')
+        },
+
+        {
             label: 'Hadith Management',
             permission: 'hadith',
             children: [
