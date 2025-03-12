@@ -13,6 +13,7 @@
     {{-- used by Tiptap Editor --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+
     <link rel="icon" href="/favicon.svg" />
 
     <!-- Fonts -->
