@@ -11,7 +11,7 @@
             <img
                 src="@resources/images/logo.svg"
                 class="w-40"
-                alt="Modular Logo"
+                alt="Daily Talim"
             />
         </Link>
 

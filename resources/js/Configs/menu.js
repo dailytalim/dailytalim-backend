@@ -17,7 +17,7 @@ export default {
 
         {
             label: 'Hadith Management',
-            permission: 'hadith',
+            permission: 'hadith-menu',
             children: [
                 {
                     label: 'Hadiths',

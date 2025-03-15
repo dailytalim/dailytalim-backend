@@ -1,5 +1,4 @@
 <?php
-
 namespace Modules\Hadith\Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -13,7 +12,7 @@ class HadithAclSeeder extends Seeder
 
         foreach ($permissions as $permission) {
             Permission::create([
-                'name' => $permission,
+                'name'       => $permission,
                 'guard_name' => 'user',
             ]);
         }
@@ -22,6 +21,8 @@ class HadithAclSeeder extends Seeder
     private function getPermissions(): array
     {
         return [
+            'hadith-menu',
+
             'hadith-index',
             'hadith-list',
             'hadith-view',
