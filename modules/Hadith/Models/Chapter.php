@@ -1,5 +1,4 @@
 <?php
-
 namespace Modules\Hadith\Models;
 
 use App\Models\User;
@@ -25,7 +24,7 @@ class Chapter extends BaseModel
 
     protected static function newFactory(): Factory
     {
-        return ChapterFactory::new();
+        return ChapterFactory::new ();
     }
 
     public function createdBy()
@@ -51,5 +50,10 @@ class Chapter extends BaseModel
     public function kitab()
     {
         return $this->belongsTo(Kitab::class);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Chapter::class, 'parent_id');
     }
 }
